@@ -1,12 +1,6 @@
 import { FaNewspaper } from "react-icons/fa6";
 import { useState } from "react";
 export default function Navbar() {
-  const [selectedOption, setSelectedOption] = useState("world");
-
-  const handleSelectionChange = (event) => {
-    setSelectedOption(event.target.value);
-    console.log(selectedOption);
-  };
   return (
     <>
       <nav
