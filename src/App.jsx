@@ -1,20 +1,20 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import Navbar from './components/Navbar.jsx'
+import Articles from './sections/Articles.jsx'
+import Footer from './sections/Footer.jsx'
+import HomePage from './sections/Home.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <nav className='flex flex-col'>
-        <h1>Home</h1>
-        <h1>Home</h1>
-        <h1>Home</h1>
-      </nav>
+      <Navbar />
+      <HomePage />
+      <Articles />
+      <Footer />
     </>
-  )
+  );
 }
 
 export default App
