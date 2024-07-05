@@ -27,17 +27,12 @@ export default function Navbar() {
           </a>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
             <a
-              href="tel:+91-9800000001"
+              href="#contacts"
               className="text-sm  text-gray-500 dark:text-white hover:underline"
             >
-              +91-9800000001
+              Contact Us
             </a>
-            <a
-              href="#"
-              className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              Login
-            </a>
+            
           </div>
         </div>
       </nav>
