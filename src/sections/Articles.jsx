@@ -14,14 +14,12 @@ export default function Articles() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = "d46c752f67b24ee2b7721289df36cf27";
+      const apiKey = "d24ae4d150014438874bb9c7741c6b60";
       const today = new Date();
       const lastMonth = new Date(today.setMonth(today.getMonth() - 1))
         .toISOString()
         .split("T")[0];
       const url = `https://api.worldnewsapi.com/search-news?api-key=${apiKey}&text=${query}&language=en&earliest-publish-date=${lastMonth}`;
-
-      console.log("Fetching data from URL:", url); // Log the URL for debugging
 
       try {
         const response = await fetch(url);
@@ -29,7 +27,7 @@ export default function Articles() {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setArticles(data.news.slice(0, 8)); // Update to use the correct property if the API response is different
+        setArticles(data.news.slice(0, 8));
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
@@ -100,7 +98,7 @@ export default function Articles() {
             description={truncateText(article.text, 50)}
             url={article.url}
           />
-        ))}
+        )) || <Card title="No articles found" />}
       </div>
     </div>
   );
