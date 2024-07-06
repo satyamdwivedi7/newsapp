@@ -1,5 +1,5 @@
-import Card from "../components/Card";
 import React, { useState, useEffect } from "react";
+import Card from "../components/Card";
 
 export default function Articles() {
   const [articles, setArticles] = useState([]);
@@ -14,23 +14,24 @@ export default function Articles() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const apiKey = "d46c752f67b24ee2b7721289df36cf27";
+      const today = new Date();
+      const lastMonth = new Date(today.setMonth(today.getMonth() - 1))
+        .toISOString()
+        .split("T")[0];
+      const url = `https://api.worldnewsapi.com/search-news?api-key=${apiKey}&text=${query}&language=en&earliest-publish-date=${lastMonth}`;
+
+      console.log("Fetching data from URL:", url); // Log the URL for debugging
+
       try {
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${query}&from=2024-06-05&sortBy=publishedAt&apiKey=3f80e4ccd6c145cba7fada7c2c6a4e47`
-        );
-
+        const response = await fetch(url);
         if (!response.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
         const data = await response.json();
-        if (data.articles) {
-          setArticles(data.articles.slice(0, 12));
-        } else {
-          setArticles([]); // Set empty array if no articles found
-        }
+        setArticles(data.news.slice(0, 8)); // Update to use the correct property if the API response is different
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("There was a problem with the fetch operation:", error);
       }
     };
 
@@ -80,7 +81,7 @@ export default function Articles() {
               type="search"
               id="default-search"
               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search for a country"
+              placeholder="Search for a topic"
             />
             <button
               type="submit"
@@ -95,8 +96,8 @@ export default function Articles() {
         {articles.map((article, index) => (
           <Card
             key={index}
-            title={truncateText(article.title, 12)}
-            description={truncateText(article.description, 100)}
+            title={truncateText(article.title, 8)}
+            description={truncateText(article.text, 50)}
             url={article.url}
           />
         ))}
